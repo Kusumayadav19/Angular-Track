@@ -1,0 +1,42 @@
+<h1>{{greeting}}</h1>
+<div class="container">
+  <div class="input">
+    <input type="text" [(ngModel)]="eventName" [placeholder]="yourEventName">
+    <input type="text" [(ngModel)]="eventTime" [placeholder]="yourEventTime">
+    <button (click)="addEvent()">Add To List</button>
+  </div>
+</div>
+
+<div class="table">
+  <table border="1">
+    <thead>
+      <tr>
+        <td>Event-ID</td>
+        <td>Event-Name</td>
+        <td>Event-Time</td>
+        <td>Actions</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of eventList"
+        [ngStyle]="{ 'background-color': editingId === event.id ? 'lightblue' : 'white' }">
+        <td>{{event.id}}</td>
+        <td>
+          <span *ngIf="editingId !== event.id">{{event.name}}</span>
+          <input *ngIf="editingId === event.id" type="text" [(ngModel)]="editName">
+        </td>
+        <td>
+          <span *ngIf="editingId !== event.id">{{event.time}}</span>
+          <input *ngIf="editingId === event.id" type="text" [(ngModel)]="editTime">
+        </td>
+        <td>
+          <button *ngIf="editingId !== event.id" (click)="editEvent(event)"
+            [ngClass]="{'editing': editingId !== event.id}">Edit Me</button>
+          <button *ngIf="editingId === event.id" (click)="saveEdit(event.id)">Save Me</button>
+          <button (click)="deleteEvent(event.id)">Delete Me</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
