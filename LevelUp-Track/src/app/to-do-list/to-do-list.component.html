@@ -3,6 +3,7 @@
   <div class="input">
     <input type="text" [(ngModel)]="eventName" [placeholder]="yourEventName">
     <input type="text" [(ngModel)]="eventTime" [placeholder]="yourEventTime">
+    <input type="number" [(ngModel)]="progressTime" [placeholder]="yourProgress">
     <button (click)="addEvent()">Add To List</button>
   </div>
 </div>
@@ -14,6 +15,7 @@
         <td>Event-ID</td>
         <td>Event-Name</td>
         <td>Event-Time</td>
+        <td>Progress</td>
         <td>Actions</td>
       </tr>
     </thead>
@@ -28,6 +30,11 @@
         <td>
           <span *ngIf="editingId !== event.id">{{event.time}}</span>
           <input *ngIf="editingId === event.id" type="text" [(ngModel)]="editTime">
+        </td>
+        <td>
+          <span *ngIf="editingId !== event.id">
+            <app-progress-bar [progressVal]="event.progress"></app-progress-bar></span>
+          <input *ngIf="editingId === event.id" type="number" [(ngModel)]="editProgress">
         </td>
         <td>
           <button *ngIf="editingId !== event.id" (click)="editEvent(event)"
